@@ -14,7 +14,8 @@
 		"Other"
 	],
 	"activationEvents": [
-		"*"
+		"onLanguage:typescript",
+		"onLanguage:javascript"
 	],
 	"browser": "./dist/web/extension.js",
 	"contributes": {
@@ -45,6 +46,7 @@
 		"lint": "eslint"
 	},
 	"dependencies": {
+		"esbuild-wasm": "^0.24.2",
 		"typescript": "^5.7.3"
 	},
 	"devDependencies": {
