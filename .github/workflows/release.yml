@@ -1,0 +1,51 @@
+name: Package and Upload VSIX
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    name: Package
+    runs-on: ubuntu-latest
+    steps:
+      # Check out current repository
+      - name: Fetch Sources
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: Install CI
+        run: npm ci
+
+      - name: Package VSIX
+        run: npm run package
+
+      - name: Create initial tag
+        run: |
+          if [ -z "$(git tag -l 'v*')" ]; then
+            git tag v0.0.0
+          fi
+
+      - name: Bump version and push tag
+        id: bump
+        uses: anothrNick/github-tag-action@1.73.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: 'patch'
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.bump.outputs.new_tag }}
+          name: Version ${{ steps.bump.outputs.new_tag }}
+          draft: false
+          prerelease: false
+          files: ./*.vsix
