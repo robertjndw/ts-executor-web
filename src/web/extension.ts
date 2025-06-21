@@ -15,7 +15,7 @@ export async function activate(context: vscode.ExtensionContext) {
     const outputChannel = vscode.window.createOutputChannel('TS Executor Logs');
 
     await esbuild.initialize({
-        wasmURL: 'https://unpkg.com/esbuild-wasm/esbuild.wasm',
+        wasmURL: 'https://unpkg.com/esbuild-wasm@0.24.2/esbuild.wasm',
     });
 
     // The command has been defined in the package.json file

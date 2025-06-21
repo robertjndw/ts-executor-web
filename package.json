@@ -47,7 +47,7 @@
 		"lint": "eslint"
 	},
 	"dependencies": {
-		"esbuild-wasm": "^0.24.2",
+		"esbuild-wasm": "0.24.2",
 		"typescript": "^5.7.3"
 	},
 	"devDependencies": {
