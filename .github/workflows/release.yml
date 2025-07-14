@@ -26,12 +26,6 @@ jobs:
       - name: Package VSIX
         run: npm run package
 
-      - name: Create initial tag
-        run: |
-          if [ -z "$(git tag -l 'v*')" ]; then
-            git tag v0.0.0
-          fi
-
       - name: Bump version and push tag
         id: bump
         uses: anothrNick/github-tag-action@1.73.0
