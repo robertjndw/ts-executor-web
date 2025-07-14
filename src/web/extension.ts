@@ -27,6 +27,7 @@ export async function activate(context: vscode.ExtensionContext) {
         console.log('Running code execution command');
         const workspaceFiles = await vscode.workspace.findFiles('**/*.{ts,js}', '**/node_modules/**');
         if (workspaceFiles.length === 0) {
+            console.error('No files found in the workspace.');
             vscode.window.showErrorMessage('No JavaScript or TypeScript files found in the workspace.');
             return;
         }
