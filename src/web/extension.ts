@@ -24,6 +24,7 @@ export async function activate(context: vscode.ExtensionContext) {
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
     const disposable = vscode.commands.registerCommand('ts-executor-web.runCode', async () => {
+        console.log('Running code execution command');
         const workspaceFiles = await vscode.workspace.findFiles('**/*.{ts,js}', '**/node_modules/**');
         if (workspaceFiles.length === 0) {
             vscode.window.showErrorMessage('No JavaScript or TypeScript files found in the workspace.');
